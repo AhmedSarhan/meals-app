@@ -31,7 +31,6 @@ export const getMealsAction = () => async (dispatch) => {
 
 export const addNewMeal = (meal) => async (dispatch, getState) => {
 	const token = getState().auth.user.idToken;
-	console.log('token', token);
 	dispatch(mealsLoadedPending());
 	await Axios.post(`/meals.json?auth=${token}`, meal)
 		.then((res) => {
@@ -50,7 +49,6 @@ export const updateMeal = (meal) => async (dispatch, getState) => {
 	const token = getState().auth.user.idToken;
 	await Axios.put(`/meals/${meal.id}.json?auth=${token}`, meal)
 		.then((res) => {
-			console.log(res.data);
 			dispatch(updateMealFulfilled(meal));
 		})
 		.catch((err) => {

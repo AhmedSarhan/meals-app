@@ -37,7 +37,7 @@ const BottomTabsNavigator = () => {
 				options={{
 					tabBarLabel: 'Meals',
 					tabBarIcon: ({ color, size }) => (
-						<Ionicons name="ios-star" color={color} size={size} />
+						<Ionicons name="ios-restaurant" color={color} size={size} />
 					),
 					headerShown: false,
 				}}
@@ -48,8 +48,9 @@ const BottomTabsNavigator = () => {
 				options={{
 					tabBarLabel: 'Favorites',
 					tabBarIcon: ({ color, size }) => (
-						<Ionicons name="ios-restaurant" color={color} size={size} />
+						<Ionicons name="ios-star" color={color} size={size} />
 					),
+
 					headerShown: false,
 				}}
 			/>

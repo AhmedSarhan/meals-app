@@ -30,7 +30,6 @@ const Select = (props) => {
 						// showDropDowns=
 						single={!isMulti}
 						onSelectedItemsChange={(newValue) => {
-							console.log('newVal', newValue);
 							setSelectedItem(newValue);
 							setValue(name, newValue, {
 								shouldValidate: true,

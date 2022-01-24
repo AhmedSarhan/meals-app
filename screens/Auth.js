@@ -49,11 +49,6 @@ const Auth = ({ navigation }) => {
 		dispatch(loginAction(data));
 	};
 
-	useEffect(() => {
-		if (!user) return;
-		console.log('will navigate now');
-		navigation.navigate('Application');
-	}, [user]);
 	if (userErrors) {
 		userErrors.map((error) => {
 			Alert.alert(error.reason, error.message, [

@@ -12,8 +12,9 @@ import { useSelector } from 'react-redux';
 import { toggleFavorite } from '../redux/actions/meals.actions';
 import CustomHeaderButton from './../components/navigation/HeaderButton';
 
-const MealData = ({ navigation }) => {
-	const mealId = navigation.getParam('mealId');
+const MealData = ({ navigation, route }) => {
+	const mealId = route.params?.mealId;
+	const mealTitle = route.params?.mealTitle;
 	const dispatch = useDispatch();
 	const meal = useSelector((state) =>
 		state.meals.meals.find((meal) => meal.id === mealId)
@@ -27,12 +28,19 @@ const MealData = ({ navigation }) => {
 	}, [dispatch, mealId]);
 
 	useEffect(() => {
-		navigation.setParams({
-			mealTitle: meal?.title,
-			toggleFav: toggleFavoriteFunction,
-			isMealFav,
+		navigation.setOptions({
+			headerTitle: mealTitle,
+			headerRight: () => (
+				<HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+					<Item
+						title="Favorite"
+						iconName={isMealFav ? 'ios-star' : 'ios-star-outline'}
+						onPress={toggleFavoriteFunction}
+					/>
+				</HeaderButtons>
+			),
 		});
-	}, [meal, isMealFav]);
+	}, [meal, isMealFav, toggleFavoriteFunction]);
 
 	return (
 		<View style={styles.screen}>
@@ -73,23 +81,7 @@ const MealData = ({ navigation }) => {
 export default MealData;
 
 export const mealDataNavOptions = (navigationData) => {
-	const {
-		isMealFav,
-		mealTitle,
-		toggleFav,
-	} = navigationData.navigation.state.params;
-	return {
-		headerTitle: mealTitle,
-		headerRight: () => (
-			<HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-				<Item
-					title="Favorite"
-					iconName={isMealFav ? 'ios-star' : 'ios-star-outline'}
-					onPress={toggleFav}
-				/>
-			</HeaderButtons>
-		),
-	};
+	return {};
 };
 
 const styles = StyleSheet.create({

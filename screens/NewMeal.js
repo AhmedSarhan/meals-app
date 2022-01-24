@@ -134,7 +134,7 @@ const NewMeal = ({ navigation }) => {
 	useEffect(() => {
 		if (!additionSuccess) return;
 
-		navigation.push('Categories');
+		navigation.navigate('Categories');
 	}, [additionSuccess]);
 	const saveMealHandler = useCallback((data) => {
 		const {
@@ -163,7 +163,6 @@ const NewMeal = ({ navigation }) => {
 			ingredients,
 			steps,
 		};
-		// console.log('newMeal', newMeal);
 		dispatch(addNewMeal(newMeal));
 	}, []);
 
@@ -354,7 +353,6 @@ const NewMeal = ({ navigation }) => {
 						required: 'please select meal complexity',
 						validate: {
 							notEmpty: (value) => {
-								console.log('value', value);
 								return (
 									(value && value.length > 0) ||
 									'please select meal complexity first'

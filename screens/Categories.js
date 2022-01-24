@@ -31,15 +31,9 @@ const Categories = (props) => {
 			<CategoryTile
 				category={itemData?.item}
 				onSelect={() => {
-					props.navigation.navigate(
-						'CategoryMeals'
-						// 	{
-						// 	routeName: 'CategoryMeals',
-						// 	params: {
-						// 		categoryId: itemData?.item?.id,
-						// 	},
-						// }
-					);
+					props.navigation.navigate('CategoryMeals', {
+						categoryId: itemData?.item?.id,
+					});
 				}}
 			/>
 		);

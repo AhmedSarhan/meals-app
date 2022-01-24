@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
 	View,
 	Text,
@@ -10,42 +10,29 @@ import {
 import { useSelector } from 'react-redux';
 import MealList from '../components/meals/MealList';
 import colors from '../constants/colors';
-import { CATEGORIES, MEALS } from './../data/dummy-data';
 
-const fetchCat = (navData) => {
-	// console.log('navData', navData);
-	console.log(navData.route);
-	let selectedCat = null;
-	const categoryId = navData.route?.params?.categoryId;
-	selectedCat = CATEGORIES.find((cat) => cat.id === categoryId);
-	return { selectedCat };
-};
 const CategoryMeals = (props) => {
-	// const { categoryId } = props.navigation.state.params;
+	const categoryId = props.route?.params?.categoryId;
+	const selectedCat = useSelector((state) =>
+		state.meals.categories.find((cat) => cat.id === categoryId)
+	);
 
-	// const displayedMeals = useSelector((state) =>
-	// 	state.meals.filteredMeals.filter((meal) =>
-	// 		meal.categoryIds.includes(categoryId)
-	// 	)
-	// );
-	const displayedMeals = [];
-	// console.log(displayedMeals);
+	const displayedMeals = useSelector((state) =>
+		state.meals.filteredMeals.filter((meal) =>
+			meal.categoryIds.includes(categoryId)
+		)
+	);
+	useLayoutEffect(() => {
+		props.navigation.setOptions({
+			headerTitle: selectedCat?.title,
+		});
+	}, []);
 	return (
 		<MealList navigation={props.navigation} displayedMeals={displayedMeals} />
 	);
 };
 
-export const catMealsNavOptions = (navigationData) => {
-	const { selectedCat } = fetchCat(navigationData);
-
-	return {
-		headerTitle: selectedCat?.title,
-		headerStyle: {
-			backgroundColor: Platform.OS === 'android' ? colors.primaryColor : '',
-		},
-		headerTintColor: Platform.OS === 'android' ? '#fff' : colors.accentColor,
-	};
-};
+export const catMealsNavOptions = (navigationData) => {};
 export default CategoryMeals;
 
 const styles = StyleSheet.create({

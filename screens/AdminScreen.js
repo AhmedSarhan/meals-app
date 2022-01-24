@@ -13,7 +13,6 @@ import colors from '../constants/colors';
 
 const AdminScreen = (props) => {
 	const { localId: userId } = useSelector((state) => {
-		console.log('user', state.auth);
 		return state.auth.user;
 	});
 	const displayedMeals = useSelector((state) =>
@@ -25,7 +24,6 @@ const AdminScreen = (props) => {
 		displayedMeals[0]?.ownerId,
 		userId
 	);
-	// console.log(displayedMeals);
 
 	if (displayedMeals.length === 0) {
 		return (

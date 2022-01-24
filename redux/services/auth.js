@@ -70,7 +70,6 @@ export const logoutAction = () => async (dispatch) => {
 };
 
 export const setLogoutTime = (time) => (dispatch) => {
-	console.log('time', time);
 	timer = setTimeout(() => {
 		dispatch(logoutAction());
 	}, time);

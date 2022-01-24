@@ -1,11 +1,17 @@
-import { DrawerItemList } from '@react-navigation/drawer';
+import {
+	DrawerItemList,
+	createDrawerNavigator,
+} from '@react-navigation/drawer';
 import colors from '../constants/colors';
 import Filters from '../screens/Filters';
 import AdminNavigator from './Admin.navigator';
 import BottomTabsNavigator from './TabsNavigator';
 import { SafeAreaView, Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { logoutAction } from './../redux/services/auth';
+import navigationOptions from './navigationOptions';
 
+const DrawerNav = createDrawerNavigator();
 const DrawerNavigator = () => {
 	const dispatch = useDispatch();
 	return (
@@ -40,7 +46,11 @@ const DrawerNavigator = () => {
 				name="Home"
 				component={BottomTabsNavigator}
 			/>
-			<DrawerNav.Screen name="Filters" component={Filters} />
+			<DrawerNav.Screen
+				name="Filters"
+				component={Filters}
+				options={navigationOptions}
+			/>
 			<DrawerNav.Screen
 				options={{ headerShown: false }}
 				name="Admin"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useLayoutEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Switch, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import colors from '../constants/colors';
@@ -33,11 +33,17 @@ const Filters = ({ navigation }) => {
 			isVegan,
 		};
 		dispatch(setFilters(appliedFilters));
-		navigation.push('Categories');
+		navigation.navigate('Categories');
 	}, [isGlutenFree, isLactoseFree, isVegan]);
 
-	useEffect(() => {
-		navigation.setParams({ saveFilters: saveFilters });
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerRight: () => (
+				<HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+					<Item title="Save" iconName="ios-save" onPress={saveFilters} />
+				</HeaderButtons>
+			),
+		});
 	}, [saveFilters]);
 	return (
 		<View style={styles.screen}>
@@ -58,20 +64,6 @@ const Filters = ({ navigation }) => {
 };
 
 export default Filters;
-
-Filters.navigationOptions = (navData) => {
-	return {
-		headerRight: () => (
-			<HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-				<Item
-					title="Save"
-					iconName="ios-save"
-					onPress={navData.navigation.getParam('saveFilters')}
-				/>
-			</HeaderButtons>
-		),
-	};
-};
 
 const styles = StyleSheet.create({
 	screen: {

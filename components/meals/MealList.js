@@ -7,14 +7,12 @@ const MealList = ({ displayedMeals, navigation, isAdmin }) => {
 	const dispatch = useDispatch();
 	const { mealsLoading } = useSelector((state) => state.meals);
 	const selectMealHandler = (mealId) => {
-		navigation.navigate({ routeName: 'MealDetail', params: { mealId } });
+		navigation.navigate('MealDetail', { mealId });
 	};
 	const loadMeals = () => {
 		dispatch(getMealsAction());
 	};
-	useEffect(() => {
-		console.log('mealsLoading', mealsLoading);
-	}, [mealsLoading]);
+
 	const renderMeal = (itemData) => {
 		return (
 			<MealItem

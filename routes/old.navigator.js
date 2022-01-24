@@ -61,7 +61,7 @@ const MealsNavigator = createStackNavigator(
 							iconName="ios-add"
 							iconSize={25}
 							color="white"
-							onPress={() => navData.navigation.push('NewMeal')}
+							onPress={() => navData.navigation.navigate('NewMeal')}
 						/>
 					</HeaderButtons>
 				),
